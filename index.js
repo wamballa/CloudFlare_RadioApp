@@ -3,27 +3,37 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  // The target HTTP stream URL
-  const targetUrl = 'http://icecast.commedia.org.uk:8000/unity.mp3'
+  const url = new URL(request.url)
+  // Get the station identifier from the query parameters (default to 'unity')
+  const station = url.searchParams.get('station') || 'unity'
   
-  // Create a new request for the target URL, copying the original method and headers if needed.
+  // Map station IDs to stream URLs
+  const stations = {
+    unity: "http://icecast.commedia.org.uk:8000/unity.mp3",
+    heartFM: "https://media-ssl.musicradio.com/HeartUK",
+    heart: "http://ice-the.musicradio.com:80/HeartUKMP3",
+    heart80s: "http://media-the.musicradio.com:80/Heart80sMP3"
+  }
+  
+  const targetUrl = stations[station]
+  if (!targetUrl) {
+    return new Response("Station not found", { status: 404 })
+  }
+  
+  // Create a new request for the target URL, copying method and headers if necessary.
   const modifiedRequest = new Request(targetUrl, {
     method: request.method,
     headers: request.headers,
     redirect: 'follow'
-  });
-  
-  // Fetch the stream from the target URL
-  const response = await fetch(modifiedRequest);
-  
-  // Create new headers, adding CORS if needed
-  const newHeaders = new Headers(response.headers);
-  newHeaders.set('Access-Control-Allow-Origin', '*'); // Optional: allow all origins
+  })
 
-  // Return the response from the target URL, now served over HTTPS
+  const response = await fetch(modifiedRequest)
+  const newHeaders = new Headers(response.headers)
+  newHeaders.set("Access-Control-Allow-Origin", "*") // allow CORS if needed
+  
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
     headers: newHeaders
-  });
+  })
 }
