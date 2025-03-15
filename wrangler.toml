@@ -1,4 +1,4 @@
 name = "cloudflare-radioapp"
 account_id = "f70a8487240e17f0fc603232f4b1d0bf"
 workers_dev = true
-main = "index.js"
+main = "index.js" 
