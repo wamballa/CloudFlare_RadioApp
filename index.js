@@ -4,7 +4,7 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   // The target HTTP stream URL
-  const targetUrl = 'http://edge-bauerall-01-gos2.sharp-stream.com:8000/unity.mp3'
+  const targetUrl = 'http://icecast.commedia.org.uk:8000/unity.mp3'
   
   // Create a new request for the target URL, copying the original method and headers if needed.
   const modifiedRequest = new Request(targetUrl, {
