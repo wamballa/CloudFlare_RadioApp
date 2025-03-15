@@ -12,6 +12,7 @@ async function handleRequest(request) {
     unity: "http://icecast.commedia.org.uk:8000/unity.mp3",
     heartFM: "https://media-ssl.musicradio.com/HeartUK",
     heart: "http://ice-the.musicradio.com:80/HeartUKMP3",
+    heartMP3: "http://icecast.thisisdax.com/HeartUKMP3.m3u",
     heart80s: "http://media-the.musicradio.com:80/Heart80sMP3"
   }
   
