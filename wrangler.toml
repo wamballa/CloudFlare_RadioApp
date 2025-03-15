@@ -1,0 +1,5 @@
+name = "my-worker"
+type = "javascript"
+account_id = "your-account-id"
+workers_dev = true
+main = "index.js"
